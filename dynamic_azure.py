@@ -28,6 +28,7 @@ from factory_azure import DynamicBotFactory
 from models import (
     Message, ChatSession, ChatResponse, ChatReport, BotConfig, BotConfigAnalyser,
     QuestionScenarioDoc, ParaphrasedQuestionCache, QuestionSession)
+from speech import router as speech_router
 # from question_bot import QuestionBot
 load_dotenv('.env')
 # MongoDB configuration
@@ -53,6 +54,7 @@ app.add_middleware(
 )
 
 db = MongoDB(MONGO_URL,DATABASE_NAME)
+app.include_router(speech_router)
 @app.get("/gt/api/check")
 async def say_hi():
     return {"message": "hi"}	
